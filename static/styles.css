@@ -1,0 +1,62 @@
+body {
+    font-family: sans-serif;
+    background: #93b1c2;
+}
+
+.body2 {
+    background: #8d9fbb;
+}
+
+p {
+    text-align: center;
+    font-size: 15px;
+}
+
+div {
+    background: white;
+    padding: 20px;
+    max-width: 400px;
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+button {
+    background: rgb(3, 151, 151);
+    padding: 12px;
+    width: 100%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: rgb(1, 133, 133);
+    transition: 350ms;
+}
+
+.btn-l {
+    background: rgb(4, 155, 49);
+}
+.btn-l:hover {
+    background: rgb(3, 129, 41);
+}
+
+.btn2 {
+    background: rgb(34, 33, 33);
+}
+.btn2:hover {
+    background: rgb(49, 49, 49);
+}
+
+.mensaje {
+    color: red;
+    text-align: center;
+}

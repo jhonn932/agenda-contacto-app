@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    <head>
+        <meta charset="utf-8">
+        <title>Registro</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <div>
+            <form action="/register" method="post">
+                <h2>Crear cuenta</h2>
+                <input type="text" name="username" placeholder="Ingrese un nombre de usuario">
+                <input type="password" name="password" placeholder="Ingrese una contraseña">
+                <button type="submit">Registrarse</button>                
+            </form>
+            <p>Or<p>
+            <a href="/login"><button class="btn-l">¿Ya tienes una cuenta?</button></a>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="mensaje">
+                        {% for msg in messages %}
+                            <p style="margin:0px;">{{ msg }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}        
+        </div>
+    </body>
+</html>
