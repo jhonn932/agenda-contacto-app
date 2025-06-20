@@ -2,18 +2,18 @@ from flask import Flask,render_template,url_for,request,flash,redirect,session
 import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash, check_password_hash
-import config
+import config as c
 
 app = Flask(__name__)
-app.secret_key = config.SECRET_KEY
+app.secret_key = c.SECRET_KEY
 
 def conexion_db():
     try:
         conexion = mysql.connector.connect(
-            host=config.MYSQL_HOST,
-            database=config.MYSQL_DATABASE,
-            user=config.MYSQL_USER,
-            password=config.MYSQL_PASSWORD
+            host=c.MYSQL_HOST,
+            database=c.MYSQL_DATABASE,
+            user=c.MYSQL_USER,
+            password=c.MYSQL_PASSWORD
         )
 
         if conexion.is_connected():
@@ -83,6 +83,7 @@ def loguear():
         
     return render_template("login.html")
 
+
 @app.route('/dashboard')
 def home():
     if 'usuario' in session:
@@ -91,6 +92,7 @@ def home():
         flash("Debes iniciar sesion para entrar al dashboard")
         return redirect('/login')
     
+
 @app.route('/logout')
 def logout():
     session.pop('usuario',None)
