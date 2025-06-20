@@ -49,9 +49,52 @@ def registro():
             flash("Se ha producido un error al registrarte")
             return redirect(url_for('registro'))
 
-        
+
     return render_template("registro.html")
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def loguear():
+    if request.method == 'POST':
+        username = request.form.get('username').strip()
+        password = request.form.get('password').strip()
+
+        if not username or not password:
+            flash('Usuario o contraseña invalidos')
+            return redirect(url_for('loguear'))
+        
+        conexion = conexion_db()
+        if conexion:
+            cursor = conexion.cursor()
+            cursor.execute("SELECT password FROM usuarios WHERE username= %s" ,(username,))
+            resultado = cursor.fetchone()
+            conexion.close()
+
+            if resultado:
+                has_guardado = resultado[0]
+                if check_password_hash(has_guardado,password):
+                    session['usuario'] = username
+                    return redirect("/dashboard")
+                else:
+                    flash("La contraseña es incorrecta.")
+            else: 
+                flash("Nombre de usuario no encontrado.")
+            return redirect(url_for('loguear'))
+        
+    return render_template("login.html")
+
+@app.route('/dashboard')
+def home():
+    if 'usuario' in session:
+        return render_template("dashboard.html")
+    else:
+        flash("Debes iniciar sesion para entrar al dashboard")
+        return redirect('/login')
+    
+@app.route('/logout')
+def logout():
+    session.pop('usuario',None)
+    return redirect('/login')
 
 if __name__ == '__main__':
     app.run(debug=True)
