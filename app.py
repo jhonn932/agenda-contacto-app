@@ -66,7 +66,7 @@ def loguear():
         conexion = conexion_db()
         if conexion:
             cursor = conexion.cursor()
-            cursor.execute("SELECT password FROM usuarios WHERE username= %s" ,(username,))
+            cursor.execute("SELECT password, id FROM usuarios WHERE username= %s" ,(username,))
             resultado = cursor.fetchone()
             conexion.close()
 
@@ -74,6 +74,7 @@ def loguear():
                 has_guardado = resultado[0]
                 if check_password_hash(has_guardado,password):
                     session['usuario'] = username
+                    session['id'] = resultado[1]
                     return redirect("/dashboard")
                 else:
                     flash("La contraseña es incorrecta.")
@@ -82,6 +83,46 @@ def loguear():
             return redirect(url_for('loguear'))
         
     return render_template("login.html")
+
+
+@app.route('/agendar', methods=['GET','POST'])
+def agendar():
+    if 'id' in session:
+        if request.method == 'POST':
+            nombre = request.form.get('nombre').strip()
+            telefono = request.form.get('telefono').strip()
+            correo = request.form.get('correo').strip()
+            observacion = request.form.get('observacion').strip()
+
+            errores = []
+            #new validacion campo por campo
+            if not nombre:
+                errores.append("El nombre es Obligario!")
+            if not telefono.isdigit() or len(telefono) < 10:
+                errores.append("Numero de telefono invalido.")
+            if not correo or '.' not in correo.split('@')[-1]:
+                errores.append("La direccion de correo es invalida.")
+
+            #mostrar errores si hay
+            if errores:
+                for error in errores:
+                    flash(error)
+                return redirect(url_for('agendar'))
+            
+            id_user = session['id']
+            conexion = conexion_db()
+            cursor = conexion.cursor()
+            cursor.execute("INSERT INTO contacto (nombre, telefono, email, observaciones, id_usuario) VALUES (%s, %s, %s, %s, %s)",
+                           (nombre, telefono, correo, observacion, id_user))
+            conexion.commit()
+            conexion.close()
+            flash("Contacto agendado Exitosamente!! Wow")
+            return redirect(url_for('agendar'))
+        
+        return render_template('agendar.html')
+    
+    flash("Debes iniciar sesion para agendar un contacto")
+    return redirect(url_for('loguear'))
 
 
 @app.route('/dashboard')
@@ -96,6 +137,7 @@ def home():
 @app.route('/logout')
 def logout():
     session.pop('usuario',None)
+    session.pop('id',None)
     return redirect('/login')
 
 if __name__ == '__main__':
