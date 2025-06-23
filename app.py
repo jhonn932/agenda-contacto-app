@@ -21,9 +21,10 @@ def conexion_db():
         
     except Error as e:
         flash(f"Error al conectar las base de datos mySQL: {e}")
-        return None
+        return redirect(url_for('registro'))
 
 
+#Registrar usuario
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
@@ -36,23 +37,18 @@ def registro():
         
         hashed_password = generate_password_hash(password)
         conexion = conexion_db()
-
-        if conexion:
-            cursor = conexion.cursor()
-            cursor.execute('INSERT INTO usuarios (username, password) VALUES (%s, %s)',
-                           (username, hashed_password))
-            conexion.commit()
-            conexion.close()
-            flash("Te has registrado Exitosamente!!")
-            return redirect(url_for('registro'))
-        else:
-            flash("Se ha producido un error al registrarte")
-            return redirect(url_for('registro'))
-
+        cursor = conexion.cursor()
+        cursor.execute('INSERT INTO usuarios (username, password) VALUES (%s, %s)',
+                       (username, hashed_password))
+        conexion.commit()
+        conexion.close()
+        flash("Te has registrado Exitosamente!!")
+        return redirect(url_for('registro'))
 
     return render_template("registro.html")
 
 
+#Loguear usuario
 @app.route('/login', methods=['GET', 'POST'])
 def loguear():
     if request.method == 'POST':
@@ -64,27 +60,28 @@ def loguear():
             return redirect(url_for('loguear'))
         
         conexion = conexion_db()
-        if conexion:
-            cursor = conexion.cursor()
-            cursor.execute("SELECT password, id FROM usuarios WHERE username= %s" ,(username,))
-            resultado = cursor.fetchone()
-            conexion.close()
 
-            if resultado:
-                has_guardado = resultado[0]
-                if check_password_hash(has_guardado,password):
-                    session['usuario'] = username
-                    session['id'] = resultado[1]
-                    return redirect("/dashboard")
-                else:
-                    flash("La contraseña es incorrecta.")
-            else: 
-                flash("Nombre de usuario no encontrado.")
+        cursor = conexion.cursor()
+        cursor.execute("SELECT password, id FROM usuarios WHERE username= %s" ,(username,))
+        resultado = cursor.fetchone()
+        conexion.close()
+
+        if resultado:
+            has_guardado = resultado[0]
+            if check_password_hash(has_guardado,password):
+                session['usuario'] = username
+                session['id'] = resultado[1]
+                return redirect("/dashboard")
+            else:
+                flash("La contraseña es incorrecta.")
+        else: 
+            flash("Nombre de usuario no encontrado.")
             return redirect(url_for('loguear'))
         
     return render_template("login.html")
 
 
+#agendar contactos
 @app.route('/agendar', methods=['GET','POST'])
 def agendar():
     if 'id' in session:
@@ -141,4 +138,4 @@ def logout():
     return redirect('/login')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)
