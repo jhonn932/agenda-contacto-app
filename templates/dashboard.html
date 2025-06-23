@@ -1,49 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-ES">
 <head>
     <meta charset="UTF-8">
     <title>Panel de Usuario</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .panel {
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        h1 {
-            color: teal;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: teal;
-            color: white;
-            border-radius: 5px;
-            text-decoration :none;
-        }
-
-        a:hover {
-            background: darkcyan;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesDash.css') }}">
 </head>
 <body>
+    <div class="nav">
+        <nav></nav>
+    </div>
     <div class="panel">
         <h1>¡Hola {{ session['usuario'] }}!</h1>
         <p>Has iniciado sesión correctamente.</p>
 
         <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-        <a href="{{ url_for('agendar') }}">Agregar un Nuevo Contacto</a>
+        <a href="{{ url_for('agendar') }}">Agregar Contactos</a>
+        <a href="{{ url_for('editar') }}">Editar un Contacto</a>
+
+        <table>
+            <thead>
+                <th>Contactos</th>
+                <th>Telefono</th>
+            </thead>
+            <tbody>
+                {% for contacto in resultado %}
+                    <tr>
+                        <td> {{ contacto.nombre }} </td>
+                        <td> {{ contacto.telefono }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>        
     </div>
 </body>
 </html>
