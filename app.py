@@ -122,10 +122,22 @@ def agendar():
     return redirect(url_for('loguear'))
 
 
+#hay que hacer la func para editar los contactos
+@app.route('/editar')
+def editar():
+    return render_template('editar.html')
+
+#de momento muestra y dirije
 @app.route('/dashboard')
 def home():
-    if 'usuario' in session:
-        return render_template("dashboard.html")
+    if 'usuario' in session and 'id' in session:
+        id_user = session['id']
+        conexion = conexion_db()
+        cursor = conexion.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM contacto WHERE id_usuario=%s",(id_user,))
+        resultado = cursor.fetchall()
+        return render_template("dashboard.html",resultado=resultado)
     else:
         flash("Debes iniciar sesion para entrar al dashboard")
         return redirect('/login')
