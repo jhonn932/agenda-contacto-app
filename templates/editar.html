@@ -8,12 +8,12 @@
     </head>
     <body class="body4">
         <div>
-            <form action="/guardarCambios" method="post">
-                <h2>Editar Contactos</h2>
-                <input type="text" name="nombre" placeholder="Nombre del Contacto">
-                <input type="number" name="telefono" placeholder="Numero de telefono">
-                <input type="email" name="correo" placeholder="Direccion de correo">
-                <input type="text" name="observacion" placeholder="Ingrese alguna observacion"><br><br>
+            <form action="{{ url_for('guardar_cambios',id=id) }}" method="post">
+                <h2>Editar a <font color="red"> {{ contacto.nombre }} </font> </h2>
+                <input type="text" name="nombre" value="{{ contacto.nombre }}" placeholder="Nombre del Contacto">
+                <input type="number" name="telefono" value="{{ contacto.telefono }}" placeholder="Numero de telefono">
+                <input type="email" name="correo" value="{{ contacto.email }}" placeholder="Direccion de correo">
+                <input type="text" name="observacion" value="{{ contacto.observaciones }}" placeholder="Ingrese alguna observacion"><br><br>
                 <button type="submit" class="btn-e">Guardar Cambios</button>                
             </form>
             <p></p>
