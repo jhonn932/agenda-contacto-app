@@ -118,16 +118,34 @@ def agendar():
         
         return render_template('agendar.html')
     
-    flash("Debes iniciar sesion para agendar un contacto")
+    flash("Debes iniciar sesion para agendar un contacto.")
     return redirect(url_for('loguear'))
 
 
-#hay que hacer la func para editar los contactos
-@app.route('/editar')
-def editar():
-    return render_template('editar.html')
+#muestra los datos del contacto seleccionado para editarlo
+@app.route('/editar/<int:id>', methods=['GET'])
+def editar(id):
+    if 'usuario' in session and 'id' in session:
+        conexion = conexion_db()
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM contacto WHERE id_contacto=%s',(id,))
+        contacto = cursor.fetchall()
+        conexion.close()
 
-#de momento muestra y dirije
+        return render_template('editar.html',contacto=contacto[0],id=id)
+    else:
+        flash("Debes iniciar sesion para editar contactos.")
+        redirect(url_for('loguear'))
+
+
+#agregar func para guardar los cambios de la edicion
+@app.route('/guardar_cambios/<int:id>', methods=['POST'])
+def guardar_cambios(id):
+    flash("Todavia no esta lista esta Funcionalidad.")
+    return redirect(url_for('editar', id=id))
+
+
+#Muestra los contactos del user, y desde aqui se puede ir a agregar o editar
 @app.route('/dashboard')
 def home():
     if 'usuario' in session and 'id' in session:
@@ -141,12 +159,14 @@ def home():
     else:
         flash("Debes iniciar sesion para entrar al dashboard")
         return redirect('/login')
-    
 
+
+#cerrar session activa
 @app.route('/logout')
 def logout():
     session.pop('usuario',None)
     session.pop('id',None)
+    flash("Saliste de tu cuenta.")
     return redirect('/login')
 
 if __name__ == '__main__':
