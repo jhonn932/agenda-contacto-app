@@ -14,8 +14,8 @@
         <h1>¡Hola {{ session['usuario'] }}!</h1>
         <p>Bienvenido, si quieres editar unos de tus contactos haz Clic en el nombre para editarlo</p>
 
-        <a class="a" href="{{ url_for('logout') }}">Cerrar sesión</a>
-        <a class="a" href="{{ url_for('agendar') }}">Agregar contactos</a>
+        <a class="a" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+        <a class="a" href="{{ url_for('contactos.agendar') }}">Agregar contactos</a>
 
         <table>
             <thead>
@@ -26,7 +26,7 @@
                 {% for contacto in resultado %}
                     <tr>
                         <td>
-                            <a class="b" href="{{ url_for('editar',id=contacto.id_contacto) }}"> 
+                            <a class="b" href="{{ url_for('contactos.editar',id=contacto.id_contacto) }}"> 
                                 {{ contacto.nombre }} 
                             </a>
                         </td>

@@ -8,7 +8,7 @@
     </head>
     <body class="body4">
         <div>
-            <form action="{{ url_for('guardar_cambios',id=id) }}" method="post">
+            <form action="{{ url_for('contactos.guardar_cambios',id=id) }}" method="post">
                 <h2>Editar a <font color="red"> {{ contacto.nombre }} </font> </h2>
                 <input type="text" name="nombre" value="{{ contacto.nombre }}" placeholder="Nombre del Contacto">
                 <input type="number" name="telefono" value="{{ contacto.telefono }}" placeholder="Numero de telefono">
