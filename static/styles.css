@@ -45,7 +45,7 @@ button {
     border-radius: 5px;
 }
 
-button:hover {
+.btn:hover {
     background: rgb(1, 133, 133);
     transition: 350ms;
 }
@@ -53,14 +53,21 @@ button:hover {
 .btn-l,.btn-e {
     background: rgb(4, 155, 49);
 }
-.btn-l,.btn-e:hover {
+
+.btn-l:hover {
     background: rgb(3, 129, 41);
+    transition: 350ms;
+}
+.btn-e:hover {
+    background: rgb(3, 129, 41);
+    transition: 350ms;   
 }
 .btn-j {
     background: rgb(34, 34, 34);
 }
 .btn-j:hover {
     background: rgb(17, 17, 17);
+    transition: 350ms;
 }
 
 .btn2 {
@@ -68,12 +75,14 @@ button:hover {
 }
 .btn2:hover {
     background: rgb(49, 49, 49);
+    transition: 350ms;
 }
 .btn-s {
     background: rgb(1, 110, 182);
 }
 .btn-s:hover {
     background: rgb(1, 94, 156);
+    transition: 350ms;
 }
 
 .mensaje {

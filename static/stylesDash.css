@@ -89,9 +89,9 @@ thead {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #e0e0e0;
 }
 
 tbody tr:hover {
-    background-color: #d1ecf1;
+    background-color: #c5e1e6;
 }
