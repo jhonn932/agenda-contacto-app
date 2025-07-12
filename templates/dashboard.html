@@ -11,7 +11,7 @@
         <nav></nav>
     </div>
     <div class="panel">
-        <h1>¡Hola {{ session['usuario'] }}!</h1>
+        <h1>¡Hola {{ session['nombre'] }}!</h1>
         <p>Bienvenido, si quieres editar unos de tus contactos haz Clic en el nombre para editarlo</p>
 
         <a class="a" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
