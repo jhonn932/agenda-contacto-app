@@ -19,7 +19,7 @@ def registro():
         hashed_password = generate_password_hash(password)
         conexion = db.conexion_db()
         cursor = conexion.cursor()
-        cursor.execute('INSERT INTO usuarios (username, password,nombre) VALUES (%s, %s, %s)',
+        cursor.execute('INSERT INTO usuarios (username, password, nombre) VALUES (%s, %s, %s)',
                        (username, hashed_password, nombre))
         conexion.commit()
         conexion.close()
