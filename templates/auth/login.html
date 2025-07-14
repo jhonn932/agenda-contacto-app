@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="es-ES">
-    <head>
-        <meta charset="utf-8">
-        <title>Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <body class="body2">
-        <div>
-            <form action="/login" method="post">
-                <h2>Login</h2>
-                <input type="text" name="username" placeholder="Ingrese tu nombre de usuario">
-                <input type="password" name="password" placeholder="Ingrese tu contraseña">
-                <button class="btn2" type="submit">Iniciar Sesion</button>                   
-            </form>
-            <p>Or<p>
-            <a href="/registro"><button class="btn-l">¿No tienes una cuenta?</button></a>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="mensaje">
-                        {% for msg in messages %}
-                            <p style="margin:0px;">{{ msg }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-        </div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesLoad.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="body2">
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Fin loader -->
+     <br>
+     <br>
+    <div class="formulario">
+        <form action="/login" method="post">
+            <h2>Login</h2>
+            <input type="text" name="username" placeholder="Ingrese tu nombre de usuario">
+            <input type="password" name="password" placeholder="Ingrese tu contraseña">
+            <button class="btn2" type="submit">Iniciar Sesion</button>                   
+        </form>
+        <p>Or<p>
+        <a href="/registro"><button class="btn-l">¿No tienes una cuenta?</button></a>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="mensaje">
+                    {% for msg in messages %}
+                        <p style="margin:0px;">{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- script para el loader -->
+    <script src="{{ url_for('static', filename='load.js') }}"></script>        
+</body>
 </html>

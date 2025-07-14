@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="es-ES">
-    <head>
-        <meta charset="utf-8">
-        <title>Registro</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <body class="body3">
-        <div>
-            <form action="/agendar" method="post">
-                <h2>Agenda tus Contactos</h2>
-                <input type="text" name="nombre" placeholder="Nombre del Contacto">
-                <input type="number" name="telefono" placeholder="Numero de telefono">
-                <input type="email" name="correo" placeholder="Direccion de correo">
-                <input type="text" name="observacion" placeholder="Ingrese alguna observacion"><br><br>
-                <button type="submit" class="btn-s">Agendar Contacto</button>                
-            </form>
-            <p></p>
-            <a href="/dashboard"><button class="btn-j">Ir al Dashboard</button></a>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="mensaje">
-                        {% for msg in messages %}
-                            <p style="margin:0px;">{{ msg }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}        
-        </div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesLoad.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="body3">
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Fin loader -->
+    <br>
+    <br>
+    <div class="formulario">
+        <form action="/agendar" method="post">
+            <h2>Agenda tus Contactos</h2>
+            <input type="text" name="nombre" placeholder="Nombre del Contacto">
+            <input type="number" name="telefono" placeholder="Numero de telefono">
+            <input type="email" name="correo" placeholder="Direccion de correo">
+            <input type="text" name="observacion" placeholder="Ingrese alguna observacion"><br><br>
+            <button type="submit" class="btn-s">Agendar Contacto</button>                
+        </form>
+        <p></p>
+        <a href="/dashboard"><button class="btn-j">Ir al Dashboard</button></a>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="mensaje">
+                    {% for msg in messages %}
+                        <p style="margin:0px;">{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}        
+    </div>
+    <!-- script para el loader -->
+    <script src="{{ url_for('static', filename='load.js') }}"></script>
+</body>
 </html>

@@ -5,8 +5,14 @@
     <title>Panel de Usuario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesDash.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesLoad.css') }}">
 </head>
 <body>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Fin loader -->
     <div class="nav">
         <nav></nav>
     </div>
@@ -42,5 +48,8 @@
     <div class="footer">
         <footer>En desarrollo...</footer>
     </div>
+
+    <!-- script para el loader -->
+    <script src="{{ url_for('static', filename='load.js') }}"></script>
 </body>
 </html>
