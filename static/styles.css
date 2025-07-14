@@ -1,6 +1,7 @@
 body {
     font-family: sans-serif;
     background: #93b1c2;
+    margin: 0;
 }
 
 .body2 {
@@ -20,11 +21,12 @@ p {
     font-size: 15px;
 }
 
-div {
+.formulario {
     background: white;
-    padding: 20px;
+    padding: 20px 20px;
     max-width: 400px;
-    margin: 30px auto;
+    margin: auto;
+    padding-bottom: 25px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
@@ -86,6 +88,7 @@ button {
 }
 
 .mensaje {
+    padding: 25px;
     color: red;
     text-align: center;
 }
