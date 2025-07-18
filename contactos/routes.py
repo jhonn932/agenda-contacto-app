@@ -86,3 +86,17 @@ def guardar_cambios(id):
     conexion.close()
     flash("Cambios guardados exitosamente!!")
     return redirect(url_for('contactos.editar',id=id))
+
+
+#func para eliminar un contacto
+@contactos.route('/eliminar/<int:id>', methods=['GET'])
+def eliminar(id):
+
+    conexion = db.conexion_db()
+    cursor = conexion.cursor()
+    cursor.execute('DELETE FROM contacto WHERE id_contacto=%s', (id,))
+    conexion.commit()
+    conexion.close()
+
+    return redirect(url_for('home'))
+    
