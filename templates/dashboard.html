@@ -36,7 +36,12 @@
                                 {{ contacto.nombre }} 
                             </a>
                         </td>
-                        <td> {{ contacto.telefono }} </td>
+                        <td>  
+                            <a class="b" href="#"> {{ contacto.telefono }} </a>
+                            <a class="icono" href="{{ url_for('contactos.eliminar',id=contacto.id_contacto) }}">
+                                <img src="{{ url_for('static', filename='iconoeliminar.svg') }}" alt="eliminar">
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
