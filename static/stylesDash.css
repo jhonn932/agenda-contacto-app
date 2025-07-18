@@ -79,8 +79,14 @@ th, td {
 }
 
 
-tr td {
-    text-align:left;
+.icono{
+    text-decoration: none;
+}
+
+.icono img {
+    width: 25px;
+    height: 25px;
+    float: right;
 }
 
 thead {
